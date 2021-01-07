@@ -9,6 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * <p>spring源码小例子</p>
  * @author moubin.mo
  * @date: 2021/1/3 08:59
  */

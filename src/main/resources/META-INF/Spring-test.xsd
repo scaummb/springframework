@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://www.lexueba.com/schema/user"
-        xmlns:tns="http://www.lexueba.com/schema/user"
         elementFormDefault="qualified">
     <!-- 验证自定义标签解析源码 -->
     <element name="user">
@@ -9,6 +8,7 @@
             <attribute name="id" type="string"></attribute>
             <attribute name="userName" type="string"></attribute>
             <attribute name="email" type="string"></attribute>
+            <attribute name="age" type="integer"></attribute>
         </complexType>
     </element>
 </schema>

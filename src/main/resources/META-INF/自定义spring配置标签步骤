@@ -1,0 +1,9 @@
+1、如何创建出 META-INF 目录？
+https://blog.csdn.net/whathellll/article/details/88764846
+
+2、META-INF 里面已经有了两个配置文件，一个是Spring.schemas 另一个Spring.handlers。干啥的？
+Spring.handlers：http\://www.lexueba.com/schema/user 交给handler处理（com.example.framework.verify.MyNamespaceHandlerSupport）
+Spring.schemas：http\://www.lexueba.com/schema/user.xsd 映射到 META-INF/Spring-test.xsd 文件
+
+3、META-INF 要置于idea-resources文件夹里面，否则项目怎么读取呢？！
+https://blog.csdn.net/shinebar/article/details/75675615?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.control

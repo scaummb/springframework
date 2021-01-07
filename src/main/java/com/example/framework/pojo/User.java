@@ -8,6 +8,15 @@ package com.example.framework.pojo;
 public class User {
 	private String userName;
 	private String email;
+	private Integer age;
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
 
 	public String getUserName() {
 		return userName;
