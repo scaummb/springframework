@@ -8,7 +8,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author moubin.mo
  * @date: 2021/1/6 18:31
  */
-
 public class CustomXSDTagTest {
 	public static void main(String[] args) {
 		//读取配置文件

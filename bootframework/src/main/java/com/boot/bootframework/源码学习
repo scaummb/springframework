@@ -1,0 +1,21 @@
+核心注解：@SpringBootApplication
+实际上相当于
+@EnableAutoConfiguration：（核心）告诉springboot框架 --  运行时自动载入应用程序所需的所有Bean，而这些自动配置就是为了尽量不让你自己写配置。
+    -》这里 @EnableAutoConfiguration 源码有个重要的注解：@Import({AutoConfigurationImportSelector.class})，这个类来源于JAR包：spring-boot-autoconfigure-2.4.2.jar。
+    -》AutoConfigurationImportSelector 是个配置类，它实现了诸多接口；
+        其中之一就是 DeferredImportSelector 接口，它继承了 ImportSelector 接口（它是Spring中导入外部配置的核心接口，该接口文档上说的明明白白，其主要作用是收集需要导入的配置类），定义了行为：String[] selectImports(AnnotationMetadata importingClassMetadata);
+        -》AutoConfigurationImportSelector.java 的 selectImports(AnnotationMetadata importingClassMetadata) 方法
+            -》AutoConfigurationImportSelector 的 getAutoConfigurationEntry(AnnotationMetadata annotationMetadata) 方法
+                -》 AutoConfigurationImportSelector 的 getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes) 方法
+                    解析：定位 SpringFactoriesLoader 的 loadFactoryNames(Class<?> factoryType, @Nullable ClassLoader classLoader) 方法，作用是
+                        获取类路径下spring.factories下key为EnableAutoConfiguration全限定名对应值。
+                        （注释有剧透.. ：No auto configuration classes found in META-INF/spring.factories.），
+                        这个方法会返回Spring Boot中所有的自动配置相关类，后续在启动过程中会解析对应类配置信息。(通过debug能看到待配置的类)
+    -》这个注解的作用：从classpath中搜索所有META-INF/spring.factories配置文件然后，将其中org.springframework.boot.autoconfigure.EnableAutoConfiguration key对应的配置项加载到spring容器，只有spring.boot.enableautoconfiguration为true（默认为true）的时候，才启用自动配置
+@SpringBootConfiguration：和 @Configuration 有相同的作用
+@ComponentScan：自动扫描
+的组合。
+
+源码：
+SpringApplication.run(XXX.class, args);
+

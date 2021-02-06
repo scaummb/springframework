@@ -1,6 +1,7 @@
 1、如何创建出 META-INF 目录？
 https://blog.csdn.net/whathellll/article/details/88764846
-
+它是干嘛的？
+https://blog.csdn.net/weixin_33810006/article/details/85948795
 2、META-INF 里面已经有了两个配置文件，一个是Spring.schemas 另一个Spring.handlers。干啥的？
 Spring.handlers：http\://www.lexueba.com/schema/user 交给handler处理（com.example.framework.verify.MyNamespaceHandlerSupport）
 Spring.schemas：http\://www.lexueba.com/schema/user.xsd 映射到 META-INF/Spring-test.xsd 文件
