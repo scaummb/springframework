@@ -6,4 +6,26 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="myTestBean" class="com.example.framework.pojo.MyTestBean"/>
+
+
+<!--    <bean id="testA" class="com.example.framework.circleInjection.TestA">-->
+<!--        <constructor-arg index="0" ref="testB"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean id="testB" class="com.example.framework.circleInjection.TestB">-->
+<!--        <constructor-arg index="0" ref="testC"></constructor-arg>-->
+<!--    </bean>-->
+<!--    <bean id="testC" class="com.example.framework.circleInjection.TestC">-->
+<!--        <constructor-arg index="0" ref="testA"></constructor-arg>-->
+<!--    </bean>-->
+
+    <bean id="testD" class="com.example.framework.circleInjection.property.TestD">
+        <property name="testE" ref="testE"></property>
+    </bean>
+    <bean id="testE" class="com.example.framework.circleInjection.property.TestE">
+        <property name="testF" ref="testF"></property>
+    </bean>
+    <bean id="testF" class="com.example.framework.circleInjection.property.TestF">
+        <property name="testD" ref="testD"></property>
+    </bean>
+
 </beans>

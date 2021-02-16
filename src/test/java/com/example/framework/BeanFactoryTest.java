@@ -10,13 +10,13 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * <p>spring源码小例子</p>
- * @author moubin.mo
  * @date: 2021/1/3 08:59
  */
 @SuppressWarnings("deprecation")
 public class BeanFactoryTest {
 	@Test
 	public void testSimpleLoad(){
+		//BeanFactory容器的使用
 		BeanFactory bf = new XmlBeanFactory(new ClassPathResource("beanFactoryTest.xml"));
 		MyTestBean bean = (MyTestBean) bf.getBean("myTestBean");
 		assertEquals("testBean", bean.getTestStr());
