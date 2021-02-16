@@ -18,14 +18,14 @@
 <!--        <constructor-arg index="0" ref="testA"></constructor-arg>-->
 <!--    </bean>-->
 
-    <bean id="testD" class="com.example.framework.circleInjection.property.TestD">
-        <property name="testE" ref="testE"></property>
-    </bean>
-    <bean id="testE" class="com.example.framework.circleInjection.property.TestE">
-        <property name="testF" ref="testF"></property>
-    </bean>
-    <bean id="testF" class="com.example.framework.circleInjection.property.TestF">
-        <property name="testD" ref="testD"></property>
-    </bean>
+<!--    <bean id="testD" class="com.example.framework.circleInjection.property.TestD">-->
+<!--        <property name="testE" ref="testE"></property>-->
+<!--    </bean>-->
+<!--    <bean id="testE" class="com.example.framework.circleInjection.property.TestE">-->
+<!--        <property name="testF" ref="testF"></property>-->
+<!--    </bean>-->
+<!--    <bean id="testF" class="com.example.framework.circleInjection.property.TestF">-->
+<!--        <property name="testD" ref="testD"></property>-->
+<!--    </bean>-->
 
 </beans>
