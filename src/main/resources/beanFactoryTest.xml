@@ -8,6 +8,9 @@
     <bean id="myTestBean" class="com.example.framework.pojo.MyTestBean"/>
 
 
+<!--    <bean id="car" class="com.example.framework.singleton.CarFactoryBean" carInfo="跑车,10,100" />-->
+    <bean id="car" class="com.example.framework.singleton.CarFactoryBean" />
+
 <!--    <bean id="testA" class="com.example.framework.circleInjection.TestA">-->
 <!--        <constructor-arg index="0" ref="testB"></constructor-arg>-->
 <!--    </bean>-->

@@ -1,16 +1,15 @@
 package com.example.framework.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
 /**
  * @author moubin.mo
  * @date: 2021/2/16 18:38
  */
-
+@Aspect
+@Component
 public class AspectBean {
 	@Pointcut("execution(* *.test(..))")
 	public void test(){
