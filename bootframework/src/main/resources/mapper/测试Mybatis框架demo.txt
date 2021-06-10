@@ -1,0 +1,120 @@
+CREATE TABLE country (
+	id int not null auto_increment,
+	countryname varchar(255) null,
+	countrycode varchar(255) null,
+	PRIMARY KEY (id)
+);
+
+INSERT country (countryname,countrycode) VALUES
+('中国','CN'),
+('美国','US'),
+('俄罗斯','RU'),
+('英国','GB'),
+('法国','FR')
+;
+
+tips
+1)XML中的select标签的id属性值和定义的接口方法名是一样的
+myBatis 就是通过这种方式将接口方法和XML中定义的SQL语句关联到一起的，如果接口方法没有和XML中的id属性值相对应，启动程序便会报错。
+<!ELEMENT select (#PCDATA | include | trim | where | set | foreach | choose | if | bind)*>
+<!ATTLIST select
+id CDATA #REQUIRED
+parameterMap CDATA #IMPLIED
+parameterType CDATA #IMPLIED
+resultMap CDATA #IMPLIED
+resultType CDATA #IMPLIED
+resultSetType (FORWARD_ONLY | SCROLL_INSENSITIVE | SCROLL_SENSITIVE) #IMPLIED
+statementType (STATEMENT|PREPARED|CALLABLE) #IMPLIED
+fetchSize CDATA #IMPLIED
+timeout CDATA #IMPLIED
+flushCache (true|false) #IMPLIED
+useCache (true|false) #IMPLIED
+databaseId CDATA #IMPLIED
+lang CDATA #IMPLIED
+resultOrdered (true|false) #IMPLIED
+resultSets CDATA #IMPLIED
+>
+
+
+2)resultMap是一种很重要的配置结果映射的方法，我们必须熟练掌握resultMap的配置方法。
+DTD属性：
+<!ELEMENT resultMap (constructor?,id*,result*,association*,collection*, discriminator?)>
+<!ATTLIST resultMap
+id CDATA #REQUIRED
+type CDATA #REQUIRED
+extends CDATA #IMPLIED
+autoMapping (true|false) #IMPLIED
+>
+
+3)MyBatis还提供了一个全局属性mapUnderscoreToCamelCase，通过配置这个属性为true可以自动将以下画线方式命名的数据库列映射到Java对象的驼峰式命名属性中。
+<settings>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+
+4)踩过的坑
+4.1
+java.io.IOException: Could not find resource mybatis.xml
+	at org.apache.ibatis.io.Resources.getResourceAsStream(Resources.java:114)
+
+	Reader reader = Resources.getResourceAsReader("mybatis.xml");
+	改为：
+	Reader reader = Resources.getResourceAsReader("mapper/mybatis.xml");
+
+4.2
+### Cause: org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: java.io.IOException: Could not find resource db.properties
+
+    <!-- 加载类路径下的属性文件 -->
+    <properties resource="db.properties">
+    </properties>
+    改为：
+    <!-- 加载类路径下的属性文件 -->
+    <properties resource="mapper/db.properties">
+    </properties>
+
+4.3
+
+    <!-- 设置实体类的类型别名 -->
+    <typeAliases>
+        <typeAlias type="com.mybatis.entity" alias="country"/>
+    </typeAliases>
+    改为：
+    <!-- 设置实体类的类型别名 -->
+    <typeAliases>
+        <typeAlias type="com.mybatis.entity.Country" alias="country"/>
+    </typeAliases>
+
+4.4
+### Cause: org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: java.io.IOException: Could not find resource CountryMapper.xml
+
+    <mappers>
+        <mapper resource="CountryMapper.xml"/>
+    </mappers>
+
+    改为
+
+    <mappers>
+        <mapper resource="mapper/CountryMapper.xml"/>
+    </mappers>
+
+4.5
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Could not create connection to database server.
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.38</version>
+        </dependency>
+        改为：
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
+        </dependency>
+
+4.6 mysql的系统安全选型和时区设置
+首先第一个报错是系统安全性和时区配置的问题，MySQL8.0不同于之前的版本，存在安全检测的问题，所以在设置url的时候需要jdbc:mysql://localhost:3306/database?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+之前的版本由于是不收费版本所以没有安全性设置，只需要jdbc:mysql://localhost:3306/database即可

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 名称空间namespace必须唯一 -->
+<mapper namespace="com.mybatis.mapper.CountryMapper">
+
+    <!--
+        resultMap标签：映射实体与表，非主键属性标签
+        type属性:实体全路径名，可在mybatis.xml文件中统一配置
+        id属性:为实体与表的映射取一个唯一的编号
+     -->
+    <resultMap type="com.mybatis.entity.Country" id="countryMap">
+        <!--
+        id标签:映射主键属性
+        result标签：映射非主键属性
+        property属性:实体属性名
+        column属性：表的字段名
+         -->
+        <id property="id" column="id"/>
+        <result property="countryname" column="countryname"/>
+        <result property="countrycode" column="countrycode"/>
+    </resultMap>
+
+    <select id="selectById" resultMap="countryMap">
+        select * from country where id = #{id}
+    </select>
+    <select id="selectAll" resultMap="countryMap">
+        select * from country
+    </select>
+
+</mapper>
